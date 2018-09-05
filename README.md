@@ -15,7 +15,11 @@ Performance.configure({
     // True if the measurement result shall be printed, false otherwise
     printMeasurementResult: true,
     // Amount of numbers after comma
-    decimalPlace: 2
+    decimalPlace: 2,
+    // Gets called, when the measurement is finished. Provides the measurement time as a parameter
+    onMeasurementFinished: function(measurementTime){
+        // the measurement time in the provided Performance.measurementUnit
+    }
 });
 // Start the performance measurement
 Performance.startMeasurement();
@@ -55,6 +59,7 @@ Add an element to the list
 - **options.measurementUnit**: `Performance.measurementUnit` - Unit for the result string
 - **options.printMeasurementResult**: `Boolean` - True if the measurement result shall be printed to console, false otherwise
 - **options.decimalPlace**: `Number` - Amount of numbers after comma
+- **options.onMeasurementFinished**: `Function` - Gets called, when the measurement is finished. Provides the measurement time as a parameter.
 
 ### Performance.startMeasurement() 
 

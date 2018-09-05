@@ -89,6 +89,8 @@ define('src/Performance',[], function () {
         * @param {PerformanceMeter.measurementUnit} [options.measurementUnit=measurementUnit.SECOND] - Unit for the result string
         * @param {Boolean} [options.printMeasurementResult=true] - True if the measurement result shall be printed to console, false otherwise
         * @param {Number} [options.decimalPlace=2] - Amount of numbers after comma
+        * @param {Function} options.onMeasurementFinished - Gets called, when the measurement is finished.
+        *                                                   Provides the measurement time as a parameter
         */
         configure: function (userOptions) {
             var options = this.options;
@@ -97,6 +99,7 @@ define('src/Performance',[], function () {
                 (userOptions.measurementUnit === this.measurementUnit.MILLISECOND) ? userOptions.measurementUnit : options.measurementUnit;
             options.printMeasurementResult = typeof userOptions.printMeasurementResult === "boolean" ? userOptions.printMeasurementResult : options.printMeasurementResult;
             options.decimalPlace = typeof userOptions.decimalPlace === "number" ? userOptions.decimalPlace : options.decimalPlace;
+            options.onMeasurementFinished = typeof userOptions.onMeasurementFinished === "function" ? userOptions.onMeasurementFinished : function () { };
         },
         /** */
         startMeasurement: function () {
@@ -108,22 +111,25 @@ define('src/Performance',[], function () {
          */
         stopMeasurement: function () {
             var options = this.options, startValue = this.startValue, endValue = this.endValue, measurementUnit = this.measurementUnit,
-                displayString = this.displayString;
+                displayString = this.displayString, onMeasurementFinished = this.onMeasurementFinished, value;
             if (!this._isStartCalledFirst) {
                 throw new Error("startMeasurement need to be called first");
             }
             endValue = performance.now();
             switch (options.measurementUnit) {
                 case measurementUnit.MILLISECOND:
-                    displayString = "Measured time: " + ((endValue - startValue)).toFixed(options.decimalPlace) + " milliseconds.";
+                    value = ((endValue - startValue)).toFixed(options.decimalPlace);
+                    displayString = "Measured time: " + value + " milliseconds.";
                     break;
                 case measurementUnit.SECOND:
-                    displayString = "Measured time: " + ((endValue - startValue) / 1000).toFixed(options.decimalPlace) + " seconds.";
+                    value = ((endValue - startValue) / 1000).toFixed(options.decimalPlace);
+                    displayString = "Measured time: " + value + " seconds.";
                     break;
             }
             if (options.printMeasurementResult) {
                 console.log(displayString);
             }
+            onMeasurementFinished(value)
             displayString = "";
             startValue = null;
             endValue = null;
