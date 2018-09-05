@@ -53,7 +53,7 @@ var Performance = require("jean-performance");
 
 ### Performance.configure(options) 
 
-Add an element to the list
+Configures the performance measurement
 
 **Parameters**
 - **options.measurementUnit**: `Performance.measurementUnit` - Unit for the result string

@@ -1,7 +1,7 @@
 {
   "name": "jean-performance",
-  "version": "1.0.0",
-  "description": "Provides functionality to measure performance time",
+  "version": "1.0.1",
+  "description": "Provides functionality for measure performance time",
   "main": "dist/jean-performance.js",
   "scripts": {
     "test": "open spec/spec-runner.html in browser"
