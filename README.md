@@ -8,7 +8,22 @@ Supports both CommonJS and AMD eco system. If there is no loader, Performance is
 ## Code Example
 - Use it as browser variable
 ```js
-var obj = new Performance();
+// The provided options are the default values
+Performance.configure({
+    // Unit for the display string
+    measurementUnit: Performance.measurementUnit.SECOND,
+    // True if the measurement result shall be printed, false otherwise
+    printMeasurementResult: true,
+    // Amount of numbers after comma
+    decimalPlace: 2
+});
+// Start the performance measurement
+Performance.startMeasurement();
+// Call the function which shall be measured
+doSomethingIntensive();
+// Stop the performance measurement
+Performance.stopMeasurement();
+// console output: Measured time: xxx seconds.
 ```
 - Use it with require.js
 ```js
@@ -26,7 +41,28 @@ var Performance = require("jean-performance");
 
 ## API Reference
 
-TBD
+### Performance.measurementUnit
+
+**Parameters**
+- **SECOND**: `Number` - value for seconds displayed in measurement string
+- **MILLISECONDS**: `Number` - value for milliseconds displayed in measurement string
+
+### Performance.configure(options) 
+
+Add an element to the list
+
+**Parameters**
+- **options.measurementUnit**: `Performance.measurementUnit` - Unit for the result string
+- **options.printMeasurementResult**: `Boolean` - True if the measurement result shall be printed to console, false otherwise
+- **options.decimalPlace**: `Number` - Amount of numbers after comma
+
+### Performance.startMeasurement() 
+
+Start the performance measurement
+
+### Performance.stopMeasurement() 
+
+Stops the performance measurement
 
 ## Tests
 
