@@ -35,13 +35,14 @@ define([], function () {
         startMeasurement: function () {
             this.startValue = performance.now();
             this._isStartCalledFirst = true;
+            return this._isStartCalledFirst;
         },
         /**
          * @throws {Error} - If startMeasurement is not called before stopMeasurement
          */
         stopMeasurement: function () {
             var options = this.options, startValue = this.startValue, endValue = this.endValue, measurementUnit = this.measurementUnit,
-                displayString = this.displayString, onMeasurementFinished = this.onMeasurementFinished, value;
+                displayString = this.displayString, onMeasurementFinished = this.options.onMeasurementFinished, value;
             if (!this._isStartCalledFirst) {
                 throw new Error("startMeasurement need to be called first");
             }
@@ -59,11 +60,12 @@ define([], function () {
             if (options.printMeasurementResult) {
                 console.log(displayString);
             }
-            onMeasurementFinished(value)
-            displayString = "";
-            startValue = null;
-            endValue = null;
+            onMeasurementFinished(parseFloat(value));
+            this.displayString = "";
+            this.startValue = null;
+            this.endValue = null;
             this._isStartCalledFirst = false;
+            return true;
         }
     };
 });

@@ -1,7 +1,7 @@
 ({
     baseUrl: '.',
     out: 'dist/jean-performance.js',
-    optimize: 'none',
+    optimize: 'uglify2',
     name: 'node_modules/jean-amd/dist/jean-amd',
     include: ["src/Performance"],
     wrap: {
