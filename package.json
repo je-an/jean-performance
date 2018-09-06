@@ -1,6 +1,6 @@
 {
   "name": "jean-performance",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Provides functionality for measure performance time",
   "main": "dist/jean-performance.js",
   "scripts": {

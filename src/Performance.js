@@ -9,7 +9,8 @@ define([], function () {
         options: {
             measurementUnit: 1,
             printMeasurementResult: true,
-            decimalPlace: 2
+            decimalPlace: 2,
+            onMeasurementFinished: function () { }
         },
         displayString: "",
         startValue: null,
